@@ -58,12 +58,13 @@ NB  We will tackle this tutorial in a different format, where I will show the co
 
 ``` 
 import torch 
+from torchvision import datasets, transforms, models
 ```
 
 
 ##### 1.2 Load data
 
-- set up the data directory folder
+ Set up the data directory folder
 
 ```
 data_dir = "" 
@@ -71,5 +72,99 @@ data_dir = ""
  Every image is inform of pixels which translate into arrays. PyTorch uses [PIL](https://pillow.readthedocs.io/en/stable/) - A python libarary for image processing.
 
 
+ Pytorch uses [torchvision](https://pytorch.org/docs/stable/torchvision/index.html) module to load datasets.The torchvision package consists of popular datasets, model architectures, and common image transformations for computer vision. We will use the [ImageFolder](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder) class to load our dataset.
+
+ To load data using the **ImageFolder** data must be arranged in this format:
+        root/dog/xxx.png
+        root/dog/xxy.png
+        root/dog/xxz.png
+
+        root/cat/123.png
+        root/cat/nsdf3.png
+        root/cat/asd932_.png
+
+and **NOT** this format:
+
+        root/xxx.png
+        root/xxy.png
+        root/123.png
+        root/nsdf3.png
+
+###### 1.3 Split the dataset int train and validation sets
+
+It's a best practise to set aside validation data fro **inference** purposes
+
+I have created a module [split_data](https://github.com/r-wambui/Agro-detect-model/raw/master/split_data.py) which splits any given image classification data into train and validation with a ration of 0.8:0.2.
+
+
+```
+train_data = datasets.ImageFolder(data_dir + '/train')
+val_data = datasets.ImageFolder(data_dir + '/val')
+
+```
+
+###### 1.4 Make the data Iterable
+
+```
+dataiter = iter(train_data)
+images, clases = dataiter
+print(type(images))
+
+```
+
+The command above raises:
+
+(image)
+
+This means we can not iterate(meaning loop through) over the dataset. Pytorch use [DataLoader](https://pytorch.org/docs/stable/data.html) to make the dataset iterable
+
+```
+train_loader = torch.utils.data.DataLoader(train_data, shuffle=True)
+val_loader = torch.utils.data.DataLoader(val_data,)
+
+```
+```
+dataiter = iter(train_data)
+images, clases = dataiter.next() ## notice next(), the data is already iterable in this case
+print(type(images))
+
+```
+
+The code above raises:
+
+(the image)
+ The [__get__item](https://pytorch.org/docs/stable/_modules/torchvision/datasets/folder.html#DatasetFolder.__getitem__) method of ImageFolder return unprocessed PIL image.  PyTorch uses tensors, since we will pass this data through pytorch models. We need to transform the image before using data loader.
+
+```
+train_transforms = transforms.Compose([transforms.ToTensor()])
+
+val_transforms = transforms.Compose([transforms.ToTensor(),
+])
+
+train_data = datasets.ImageFolder(data_dir + '/train', transform=train_transforms)
+val_data = datasets.ImageFolder(data_dir + '/val', transform=val_transforms)
+
+train_loader = torch.utils.data.DataLoader(train_data, batch_size=8, shuffle=True)
+val_loader = torch.utils.data.DataLoader(val_data, batch_size=8)
+```
+**batch_size** run 8 sample per iterations 
+
+#### Data Transformation and Augumentation
+
+**Note** The dataset in this case has images with the same shape/dimensions(256, 256, 3). In most scenarios this is not the case. Therefore you need to resize the images to the same shape.
+
+```
+train_transforms = transforms.Compose([transforms.RandomRotation(30), #data augumnetation
+                                       transforms.RandomResizedCrop(256/[desired_size]),
+                                       transforms.RandomHorizontalFlip(), #data augumnetation
+                                       transforms.ToTensor(),
+                                       ])
+
+val_transforms = transforms.Compose([
+                                      transforms.RandomResizedCrop(256/[desired_size]),
+                                      transforms.ToTensor(),
+                                      ])
+```
+ 
 
 
