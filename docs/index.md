@@ -39,7 +39,7 @@ A CNN is a type of neural network which mainly include convolutional and pooling
 
 Creating a CNN will involves the following:
 
-```Step 1: Loading the image data and transforming it```
+```Step 1: Data loading and transformation```
 
 ```Step 2: Defining the CNN architecture```
 
@@ -50,4 +50,26 @@ Creating a CNN will involves the following:
 ```Step 5: Validating the model using the test set```
 
 
-#### Step 1: Loading the image data and transforming it
+NB  We will tackle this tutorial in a different format, where I will show the common errors I encountered while starting to learn PyTorch. 
+
+#### Step 1: Data loading and transformation
+
+##### 1.1 import our packages
+
+``` 
+import torch 
+```
+
+
+##### 1.2 Load data
+
+- set up the data directory folder
+
+```
+data_dir = "" 
+```
+ Every image is inform of pixels which translate into arrays. PyTorch uses [PIL](https://pillow.readthedocs.io/en/stable/) - A python libarary for image processing.
+
+
+
+
