@@ -115,7 +115,7 @@ print(type(images))
 
 The command above raises:
 
-(image)
+<img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/non_iterable.png" />
 
 This means we can not iterate(meaning loop through) over the dataset. Pytorch use [DataLoader](https://pytorch.org/docs/stable/data.html) to make the dataset iterable
 
@@ -125,15 +125,16 @@ val_loader = torch.utils.data.DataLoader(val_data,)
 
 ```
 ```
-dataiter = iter(train_data)
-images, clases = dataiter.next() ## notice next(), the data is already iterable in this case
+dataiter = iter(train_loader)
+images, clases = dataiter.next()
 print(type(images))
 
 ```
 
 The code above raises:
 
-(the image)
+<img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/tensor.png" />
+
  The [getitem](https://pytorch.org/docs/stable/_modules/torchvision/datasets/folder.html#DatasetFolder) method of ImageFolder return unprocessed PIL image.  PyTorch uses tensors, since we will pass this data through pytorch models. We need to transform the image before using data loader. 
 
 ```
@@ -160,13 +161,13 @@ Therefore we need to resize the images to the same shape before transforming it 
 
 ```
 train_transforms = transforms.Compose([transforms.RandomRotation(30), #data augumnetation
-                                       transforms.RandomResizedCrop(256/[desired_size]),
+                                       transforms.RandomResizedCrop(224/[desired_size]),
                                        transforms.RandomHorizontalFlip(), #data augumnetation
                                        transforms.ToTensor(),
                                        ])
 
 val_transforms = transforms.Compose([
-                                      transforms.RandomResizedCrop(256/[desired_size]),
+                                      transforms.RandomResizedCrop(224/[desired_size]),
                                       transforms.ToTensor(),
                                       ])
 ```
