@@ -75,6 +75,7 @@ data_dir = ""
  Pytorch uses [torchvision](https://pytorch.org/docs/stable/torchvision/index.html) module to load datasets.The torchvision package consists of popular datasets, model architectures, and common image transformations for computer vision. We will use the [ImageFolder](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder) class to load our dataset.
 
  To load data using the **ImageFolder** data must be arranged in this format:
+
         root/dog/xxx.png
         root/dog/xxy.png
         root/dog/xxz.png
@@ -133,7 +134,7 @@ print(type(images))
 The code above raises:
 
 (the image)
- The [__get__item](https://pytorch.org/docs/stable/_modules/torchvision/datasets/folder.html#DatasetFolder.__getitem__) method of ImageFolder return unprocessed PIL image.  PyTorch uses tensors, since we will pass this data through pytorch models. We need to transform the image before using data loader.
+ The [getitem](https://pytorch.org/docs/stable/_modules/torchvision/datasets/folder.html#DatasetFolder) method of ImageFolder return unprocessed PIL image.  PyTorch uses tensors, since we will pass this data through pytorch models. We need to transform the image before using data loader. 
 
 ```
 train_transforms = transforms.Compose([transforms.ToTensor()])
@@ -149,9 +150,13 @@ val_loader = torch.utils.data.DataLoader(val_data, batch_size=8)
 ```
 **batch_size** run 8 sample per iterations 
 
-#### Data Transformation and Augumentation
+Run the data iter. This will raise a **runtime error**
 
-**Note** The dataset in this case has images with the same shape/dimensions(256, 256, 3). In most scenarios this is not the case. Therefore you need to resize the images to the same shape.
+<img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/runtime.png" />
+
+Therefore we need to resize the images to the same shape before transforming it to a tensor
+
+#### Data Transformation and Augumentation
 
 ```
 train_transforms = transforms.Compose([transforms.RandomRotation(30), #data augumnetation
