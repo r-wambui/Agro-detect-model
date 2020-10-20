@@ -1,0 +1,20 @@
+.copy-code-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+    background: #3b3b3b;
+  }
+  
+.copybutton{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      background-color: #616161;
+      color: #e7e7e7;
+      padding: 0.4em 0.5em;
+      border-radius: 5px;
+
+      }

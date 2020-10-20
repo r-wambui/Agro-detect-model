@@ -2,6 +2,7 @@
 id: index
 title: Build a Simple Crop Disease Detection Model with PyTorch
 sidebar_label: PyTorch Tutorial
+layout: default
 ---
 
 
@@ -56,18 +57,19 @@ NB  We will tackle this tutorial in a different format, where I will show the co
 
 ##### 1.1 import our packages
 
-``` 
+{%- capture code -%}
 import torch 
 from torchvision import datasets, transforms, models
-```
 
+{%- endcapture -%}
+{% include code.md code=code language='python' %}
 
 ##### 1.2 Load data
 
  Set up the data directory folder
 
-```
-data_dir = "" 
+```python
+data_dir = "data" 
 ```
  Every image is inform of pixels which translate into arrays. PyTorch uses [PIL](https://pillow.readthedocs.io/en/stable/) - A python libarary for image processing.
 
@@ -98,7 +100,7 @@ It's a best practise to set aside validation data fro **inference** purposes
 I have created a module [split_data](https://github.com/r-wambui/Agro-detect-model/raw/master/split_data.py) which splits any given image classification data into train and validation with a ration of 0.8:0.2.
 
 
-```
+```python
 train_data = datasets.ImageFolder(data_dir + '/train')
 val_data = datasets.ImageFolder(data_dir + '/val')
 
@@ -106,7 +108,7 @@ val_data = datasets.ImageFolder(data_dir + '/val')
 
 ###### 1.4 Make the data Iterable
 
-```
+```python
 dataiter = iter(train_data)
 images, clases = dataiter
 print(type(images))
@@ -119,12 +121,12 @@ The command above raises:
 
 This means we can not iterate(meaning loop through) over the dataset. Pytorch use [DataLoader](https://pytorch.org/docs/stable/data.html) to make the dataset iterable
 
-```
+```python
 train_loader = torch.utils.data.DataLoader(train_data, shuffle=True)
 val_loader = torch.utils.data.DataLoader(val_data,)
 
 ```
-```
+```python
 dataiter = iter(train_loader)
 images, clases = dataiter.next()
 print(type(images))
@@ -137,7 +139,7 @@ The code above raises:
 
  The [getitem](https://pytorch.org/docs/stable/_modules/torchvision/datasets/folder.html#DatasetFolder) method of ImageFolder return unprocessed PIL image.  PyTorch uses tensors, since we will pass this data through pytorch models. We need to transform the image before using data loader. 
 
-```
+```python
 train_transforms = transforms.Compose([transforms.ToTensor()])
 
 val_transforms = transforms.Compose([transforms.ToTensor(),
@@ -148,6 +150,7 @@ val_data = datasets.ImageFolder(data_dir + '/val', transform=val_transforms)
 
 train_loader = torch.utils.data.DataLoader(train_data, batch_size=8, shuffle=True)
 val_loader = torch.utils.data.DataLoader(val_data, batch_size=8)
+
 ```
 **batch_size** run 8 sample per iterations 
 
@@ -158,19 +161,43 @@ Run the data iter. This will raise a **runtime error**
 Therefore we need to resize the images to the same shape before transforming it to a tensor
 
 #### Data Transformation and Augumentation
+{%- capture code -%}
 
-```
 train_transforms = transforms.Compose([transforms.RandomRotation(30), #data augumnetation
-                                       transforms.RandomResizedCrop(224/[desired_size]),
+                                       transforms.RandomResizedCrop(224),#resize
                                        transforms.RandomHorizontalFlip(), #data augumnetation
                                        transforms.ToTensor(),
                                        ])
 
 val_transforms = transforms.Compose([
-                                      transforms.RandomResizedCrop(224/[desired_size]),
+                                      transforms.RandomResizedCrop(224), #resize
                                       transforms.ToTensor(),
                                       ])
-```
- 
+
+train_data = datasets.ImageFolder(data_dir + '/train', transform=train_transforms)
+val_data = datasets.ImageFolder(data_dir + '/val', transform=val_transforms)
+
+train_loader = torch.utils.data.DataLoader(train_data, batch_size=8, shuffle=True)
+val_loader = torch.utils.data.DataLoader(val_data, batch_size=8)
+
+
+dataiter = iter(train_loader)
+images, classes = dataiter.next()
+print(type(images))
+print(images.shape)
+print(classes.shape)
+
+{%- endcapture -%}
+{% include code.md code=code language='python' %}
+
+#### Data Visualization
+
+
+
+
+### Model
+ PyTorch [nn](https://pytorch.org/docs/stable/nn.html) module is used to build models.
+
+
 
 
