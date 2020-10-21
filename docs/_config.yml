@@ -3,3 +3,6 @@ title: null
 markdown: kramdown
 theme: jekyll-theme-cayman
 exclude: [vendor]
+sidebar:
+  title: "Sample Title"
+  nav: sidebar-sample

@@ -19,6 +19,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   </head>
+  {{include._data.navigation.yml}}
   <body>
 
     <main id="content" class="main-content" role="main">
@@ -27,6 +28,7 @@
 {{ include.code }}
 
   <footer class="site-footer">
+    Copyright © 2020 Sample CNN with PyTorch
   </footer>
 </main>
   </body>
