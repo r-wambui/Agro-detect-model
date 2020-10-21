@@ -15,9 +15,11 @@ By Rose Wambui
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/plant.jpg" />
 
 ### Introduction
+{:toc}
 In this tuitorial we will be creating a simple crop disease detector using PyTorch. We will use plant dataset that consists of 39 different classes of crop diseases with RGB images. We will leverage the power of Convolutional Neural Network(CNN)to achieve this.
 
 ### Prerequisites
+{:toc}
  * Install PyTorch
  * Basic Understanding on Nueral Networks specifically in this case Convolutional Neural Network(CNN)
 
