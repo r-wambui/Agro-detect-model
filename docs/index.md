@@ -3,12 +3,11 @@ id: index
 title: Build a Simple Crop Disease Detection Model with PyTorch
 sidebar_label: PyTorch Tutorial
 layout: default
----
 
 sidebar:
     * auto-gen TOC:
     {:toc}
-
+---
 ## Build a Simple Crop Disease Detection Model with PyTorch
 {:.no_toc}
 October 12, 2020
