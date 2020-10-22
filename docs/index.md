@@ -9,7 +9,7 @@ layout: default
 {:toc}
 
 ## Build a Simple Crop Disease Detection Model with PyTorch
-
+{:.no_toc
 October 12, 2020
 
 By [Rose Wambui](https://www.linkedin.com/in/rose-wambui-ab2178114/) 
@@ -63,9 +63,9 @@ Creating a CNN will involve the following:
 
 - We will tackle this tutorial in a different format, where I will show the common errors I encountered while starting to learn PyTorch. 
 
-#### Step 1: Data loading and transformation
-
-##### 1.1 import our packages
+### Step 1: Data loading and transformation
+{:toc}
+#### 1.1 import our packages
 
 {%- capture code -%}
 import torch 
@@ -74,7 +74,7 @@ from torchvision import datasets, transforms, models
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-##### 1.2 Load data
+#### 1.2 Load data
 
  Set up the data directory folder
 
@@ -103,7 +103,7 @@ and **NOT** this format:
         root/123.png
         root/nsdf3.png
 
-###### 1.3 Split the dataset int train and validation sets
+#### 1.3 Split the dataset int train and validation sets
 
 It's a best practise to set aside validation data for **inference** purposes.
 
@@ -116,7 +116,7 @@ val_data = datasets.ImageFolder(data_dir + '/val')
 
 ```
 
-###### 1.4 Make the data Iterable
+#### 1.4 Make the data Iterable
 
 ```python
 dataiter = iter(train_data)
@@ -201,13 +201,14 @@ print(classes.shape)
 {% include code.md code=code language='python' %}
 
 
-####  Step 2: Model architecture
+###  Step 2: Model architecture
+{:toc}
 
 PyTorch [nn](https://pytorch.org/docs/stable/nn.html) module is used to build models.
 
 When creating CNN, understanding the output dimensions after every convolutional and pooling layer is important.
 
-#### Calculate output dimensions
+#### 2.1 Calculate output dimensions
 This is the formula to calculate dimensions through a convolutional layer
 
 <img src="https://latex.codecogs.com/gif.latex?O=(\frac{W-K+2P}{S}+1)">
@@ -326,6 +327,7 @@ model = CropDetectCNN()
 
 
 ### Step 3: Loss and Optimizer
+{:toc}
 **Loss** determines how far the model deviates from predicting true values while **Optimizer** is the function used to change the attributes/parameter of the neural networks such as weights and learning rate.
 
 These functions are dependant on the type of machine learning problem you are trying to solve. In our case, we are dealing with multi-class classification. You can research more on loss and optimization in neural networks.
@@ -349,7 +351,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-#### Step 4 & 5: Model Training and Validation
+### Step 4 & 5: Model Training and Validation
+{:toc}
 
 {%- capture code -%}
 epochs = 1 #run more iterations
@@ -426,8 +429,8 @@ for epoch in range(epochs):
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-#### Step 6: Model prediction
-
+### Step 6: Model prediction
+{:toc}
 Let's see how our model is able to predict on of set images.
 
 In the PyTorch ImageFolder we used, we have a variable **class_to_idx** which converted the class names to respective index. Since training uses the index we need to convert the predicted index to the corresponding class name
@@ -438,7 +441,7 @@ model.class_to_idx.items()
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-##### Process the image
+#### 6.1 Process the image
 - We need to transform the image to the desired shape and to a tensor before predicing it.
 
 {%- capture code -%}
@@ -508,7 +511,7 @@ def predict(image, model):
 {% include code.md code=code language='python' %}
 
 
-#### Visualization
+##### Visualization
 {%- capture code -%}
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -526,4 +529,5 @@ def plot_solution(image_path, ps, classes):
 
 
 #### Conclusion
+{:toc}
 - 
