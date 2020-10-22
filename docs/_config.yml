@@ -3,4 +3,6 @@ title: null
 markdown: kramdown
 theme: jekyll-theme-cayman
 exclude: [vendor]
-sidebar: * auto-gen TOC{:toc}
+sidebar:
+  title: "Sample Title"
+  nav: sidebar-sample
