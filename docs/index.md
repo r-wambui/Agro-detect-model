@@ -10,7 +10,7 @@ layout: default
 
 October 12, 2020
 
-By Rose Wambui
+By [Rose Wambui](https://www.linkedin.com/in/rose-wambui-ab2178114/) 
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/plant.jpg" />
 
@@ -521,4 +521,5 @@ def plot_solution(image_path, ps, classes):
 {% include code.md code=code language='python' %}
 
 
-
+#### Conclusion
+- 
