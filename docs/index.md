@@ -194,13 +194,10 @@ print(classes.shape)
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-#### Data Visualization
 
+####  Step 2: Model architecture
 
-
-
-### Model
- PyTorch [nn](https://pytorch.org/docs/stable/nn.html) module is used to build models.
+PyTorch [nn](https://pytorch.org/docs/stable/nn.html) module is used to build models.
 
 When creating CNN, understanding the output dimensions after every connvolutional and pooling layers is important.
 
@@ -322,3 +319,101 @@ model = CropDetectCNN()
 {% include code.md code=code language='python' %}
 
 
+### Step 3: Loss and Optimizer
+Loss determines how far the model deviates from predicitng true values while Optimizer is the function used to change the attributes/parameter of the neural networks such as weights and learning rate.
+
+These functions are dependant on the type of machine learning problem you are trying to solve. In our case we are dealing with multi-class classification. You can research more on loss and optimization in neural networks.
+
+For this case we'll use Cross Entropy Loss and Stochastic Gredient Descent(SGD)
+
+{%- capture code -%}
+import torch.optim as optim
+
+criterion = nn.CrossEntropyLoss()
+
+optimizer = optim.SGD(model.parameters(), lr=0.01)
+{%- endcapture -%}
+{% include code.md code=code language='python' %}
+
+Image analysis require very high processing power, Therefore you can leverage free GPUs in the market. PyTorch uses CUDA to enable developers to run their products on gpu enable environment. 
+
+{%- capture code -%}
+# run on GPU if available else run on a CPU
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+{%- endcapture -%}
+{% include code.md code=code language='python' %}
+
+#### Step 4: Model Training
+
+{%- capture code -%}
+epochs = 1 #run more iterations
+
+for epoch in range(epochs):
+    running_loss = 0
+    for images, classes in train_loader:
+
+        # Use GPU 
+        images, classes = images.to(device), classes.to(device)
+        
+        # clears old gradients from the last step
+        optimizer.zero_grad()
+        
+        # train the images
+        outputs = model(images)
+        
+        #calculate the loss given the ouputs and the classes
+        loss = criterion(outputs, classes)
+        
+        # compute the loss of every parameter
+        loss.backward()
+        
+        # apply the optimizer and it's parameters
+        optimizer.step()
+        
+        #update the loss
+        running_loss += loss.item()
+        
+    else:
+        validation_loss = 0
+        accuracy = 0
+        
+        # to make the model run faster we are using the gradients on the train
+        with torch.no_grad():
+            # specify that this is validation and not training
+            model.eval()
+            for images, classes in val_loader:
+                
+                # Use GPU
+                images, classes = images.to(device), classes.to(device)
+                
+                # validate the images
+                outputs = model(images)
+                
+                # compute validation loss
+                loss = criterion(outputs, classes)
+                
+                #update loss
+                validation_loss += loss.item()
+                
+                # get the exponential of the outputs
+                ps = torch.exp(outputs)
+                
+                #Returns the k largest elements of the given input tensor along a given dimension.
+                top_p, top_class = ps.topk(1, dim=1)
+                
+                # reshape the tensor
+                equals = top_class == classes.view(*top_class.shape)
+                
+                # calculate the accuracy.
+                accuracy += torch.mean(equals.type(torch.FloatTensor))
+        
+        # change the mode to train for next epochs
+        model.train()
+
+        print("Epoch: {}/{}.. ".format(epoch+1, epochs),
+              "Training Loss: {:.3f}.. ".format(running_loss/len(train_loader)),
+              "Valid Loss: {:.3f}.. ".format(validation_loss/len(val_loader)),
+              "Valid Accuracy: {:.3f}".format(accuracy/len(val_loader)))
+
+{%- endcapture -%}
+{% include code.md code=code language='python' %}
