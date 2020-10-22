@@ -9,7 +9,7 @@ layout: default
 {:toc}
 
 ## Build a Simple Crop Disease Detection Model with PyTorch
-{:.no_toc
+{:.no_toc}
 October 12, 2020
 
 By [Rose Wambui](https://www.linkedin.com/in/rose-wambui-ab2178114/) 
@@ -27,7 +27,7 @@ In this tutorial, we will be creating a simple crop disease detector using PyTor
 
  
 
-#### Install PyTorch
+#### 1.Install PyTorch
 {:toc}
 - Follow the guidelines on the [website](https://pytorch.org/) to install PyTorch. Based on your  *operating system*, *the package*, and the *programming  language* you are given the command to run to install.
 
@@ -35,7 +35,7 @@ In this tutorial, we will be creating a simple crop disease detector using PyTor
 
 <br> <br>
 
-####  Convolutional Neural Network(CNN)
+####  2. Understanding of Convolutional Neural Network(CNN)
 {:toc}
 CNN is a type of neural network which mainly includes convolutional and pooling layers.
 
@@ -66,7 +66,7 @@ Creating a CNN will involve the following:
 ### Step 1: Data loading and transformation
 {:toc}
 #### 1.1 import our packages
-
+{:.no_toc}
 {%- capture code -%}
 import torch 
 from torchvision import datasets, transforms, models
@@ -75,7 +75,7 @@ from torchvision import datasets, transforms, models
 {% include code.md code=code language='python' %}
 
 #### 1.2 Load data
-
+{:.no_toc}
  Set up the data directory folder
 
 ```python
@@ -104,7 +104,7 @@ and **NOT** this format:
         root/nsdf3.png
 
 #### 1.3 Split the dataset int train and validation sets
-
+{:.no_toc}
 It's a best practise to set aside validation data for **inference** purposes.
 
 I have created a module [split_data](https://github.com/r-wambui/Agro-detect-model/raw/master/split_data.py) which splits any given image classification data into train and validation with a ration of 0.8:0.2.
@@ -117,7 +117,7 @@ val_data = datasets.ImageFolder(data_dir + '/val')
 ```
 
 #### 1.4 Make the data Iterable
-
+{:.no_toc}
 ```python
 dataiter = iter(train_data)
 images, clases = dataiter
@@ -171,6 +171,7 @@ Run the data iter. This will raise a **runtime error**
 Therefore we need to resize the images to the same shape before transforming it to a tensor
 
 #### Data Transformation and Augumentation
+{:.no_toc}
 {%- capture code -%}
 
 train_transforms = transforms.Compose([transforms.RandomRotation(30), #data augumnetation
@@ -209,6 +210,7 @@ PyTorch [nn](https://pytorch.org/docs/stable/nn.html) module is used to build mo
 When creating CNN, understanding the output dimensions after every convolutional and pooling layer is important.
 
 #### 2.1 Calculate output dimensions
+{:.no_toc}
 This is the formula to calculate dimensions through a convolutional layer
 
 <img src="https://latex.codecogs.com/gif.latex?O=(\frac{W-K+2P}{S}+1)">
