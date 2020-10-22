@@ -17,17 +17,18 @@ By [Rose Wambui](https://www.linkedin.com/in/rose-wambui-ab2178114/)
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/plant.jpg" />
 
 ### Introduction
-
+{:toc}
 In this tutorial, we will be creating a simple crop disease detector using PyTorch. We will use a plant dataset that consists of 39 different classes of crop diseases with RGB images. We will leverage the power of the Convolutional Neural Network(CNN)to achieve this.
 
 ### Prerequisites
-
+{:toc}
  * Install PyTorch
  * Basic Understanding on Neueral Networks specifically in this case Convolutional Neural Network(CNN)
 
  
 
 #### Install PyTorch
+{:toc}
 - Follow the guidelines on the [website](https://pytorch.org/) to install PyTorch. Based on your  *operating system*, *the package*, and the *programming  language* you are given the command to run to install.
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/pytorch_install.png" />
@@ -35,6 +36,7 @@ In this tutorial, we will be creating a simple crop disease detector using PyTor
 <br> <br>
 
 ####  Convolutional Neural Network(CNN)
+{:toc}
 CNN is a type of neural network which mainly includes convolutional and pooling layers.
 
 - Convolutional layer - contains a set of filters whose height and weight are smaller than the input image. These weights are then trained
