@@ -28,7 +28,7 @@ In this tutorial, we will be creating a simple crop disease detector using PyTor
  
 
 #### 1.Install PyTorch
-{:toc}
+{:.no_toc}
 - Follow the guidelines on the [website](https://pytorch.org/) to install PyTorch. Based on your  *operating system*, *the package*, and the *programming  language* you are given the command to run to install.
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/pytorch_install.png" />
@@ -36,7 +36,7 @@ In this tutorial, we will be creating a simple crop disease detector using PyTor
 <br> <br>
 
 ####  2. Understanding of Convolutional Neural Network(CNN)
-{:toc}
+{:.no_toc}
 CNN is a type of neural network which mainly includes convolutional and pooling layers.
 
 - Convolutional layer - contains a set of filters whose height and weight are smaller than the input image. These weights are then trained
@@ -444,6 +444,7 @@ model.class_to_idx.items()
 {% include code.md code=code language='python' %}
 
 #### 6.1 Process the image
+{:.no_toc}
 - We need to transform the image to the desired shape and to a tensor before predicing it.
 
 {%- capture code -%}
@@ -514,6 +515,7 @@ def predict(image, model):
 
 
 ##### Visualization
+{:.no_toc}
 {%- capture code -%}
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -530,6 +532,6 @@ def plot_solution(image_path, ps, classes):
 {% include code.md code=code language='python' %}
 
 
-#### Conclusion
+### Conclusion
 {:toc}
 - 
