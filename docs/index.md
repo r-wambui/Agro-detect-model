@@ -16,33 +16,33 @@ By [Rose Wambui](https://www.linkedin.com/in/rose-wambui-ab2178114/)
 
 ### Introduction
 
-In this tuitorial we will be creating a simple crop disease detector using PyTorch. We will use plant dataset that consists of 39 different classes of crop diseases with RGB images. We will leverage the power of Convolutional Neural Network(CNN)to achieve this.
+In this tutorial, we will be creating a simple crop disease detector using PyTorch. We will use a plant dataset that consists of 39 different classes of crop diseases with RGB images. We will leverage the power of the Convolutional Neural Network(CNN)to achieve this.
 
 ### Prerequisites
 
  * Install PyTorch
- * Basic Understanding on Nueral Networks specifically in this case Convolutional Neural Network(CNN)
+ * Basic Understanding on Neueral Networks specifically in this case Convolutional Neural Network(CNN)
 
  
 
 #### Install PyTorch
-- Follow the guidelines on the [website](https://pytorch.org/) to install PyTorch. Based on your  *operating system*, *the package* and the *programming  laguage* you are given the command to run to install.
+- Follow the guidelines on the [website](https://pytorch.org/) to install PyTorch. Based on your  *operating system*, *the package*, and the *programming  language* you are given the command to run to install.
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/pytorch_install.png" />
 
 <br> <br>
 
 ####  Convolutional Neural Network(CNN)
-A CNN is a type of neural network which mainly include convolutional and pooling layers.
+CNN is a type of neural network which mainly includes convolutional and pooling layers.
 
-- Convolutional layer - contains a set of filters whose height and weight are smaller of the input image. These weights are then trained
-- Pooling layer - Incorporated between two convolutional layers, a pooling layer reduces the number of parametrs and computatuon power by down-sampling the images through an activation function.
-- Fully connected layer- Takes the end results of convolutional and pooling process and reaches a classification decision.
+- Convolutional layer - contains a set of filters whose height and weight are smaller than the input image. These weights are then trained
+- Pooling layer - Incorporated between two convolutional layers, a pooling layer reduces the number of parameters and computation power by down-sampling the images through an activation function.
+- Fully connected layer- Takes the end results of the convolutional and pooling process and reaches a classification decision.
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/Architecture.png" />
 <br>
 
-Creating a CNN will involves the following:
+Creating a CNN will involve the following:
 
 ```Step 1: Data loading and transformation```
 
@@ -57,7 +57,7 @@ Creating a CNN will involves the following:
 ```Step 6: Predict```
 
 
-NB  We will tackle this tutorial in a different format, where I will show the common errors I encountered while starting to learn PyTorch. 
+- We will tackle this tutorial in a different format, where I will show the common errors I encountered while starting to learn PyTorch. 
 
 #### Step 1: Data loading and transformation
 
@@ -77,10 +77,10 @@ from torchvision import datasets, transforms, models
 ```python
 data_dir = "data" 
 ```
- Every image is inform of pixels which translate into arrays. PyTorch uses [PIL](https://pillow.readthedocs.io/en/stable/) - A python libarary for image processing.
+ Every image is in form of pixels that translate into arrays. PyTorch uses [PIL](https://pillow.readthedocs.io/en/stable/) - A python library for image processing.
 
 
- Pytorch uses [torchvision](https://pytorch.org/docs/stable/torchvision/index.html) module to load datasets.The torchvision package consists of popular datasets, model architectures, and common image transformations for computer vision. We will use the [ImageFolder](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder) class to load our dataset.
+ Pytorch uses [torchvision](https://pytorch.org/docs/stable/torchvision/index.html) module to load datasets. The torchvision package consists of popular datasets, model architectures, and common image transformations for computer vision. We will use the [ImageFolder](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder) class to load our dataset.
 
  To load data using the **ImageFolder** data must be arranged in this format:
 
@@ -101,7 +101,7 @@ and **NOT** this format:
 
 ###### 1.3 Split the dataset int train and validation sets
 
-It's a best practise to set aside validation data fro **inference** purposes
+It's a best practise to set aside validation data for **inference** purposes.
 
 I have created a module [split_data](https://github.com/r-wambui/Agro-detect-model/raw/master/split_data.py) which splits any given image classification data into train and validation with a ration of 0.8:0.2.
 
@@ -143,7 +143,7 @@ The code above raises:
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/tensor.png" />
 
- The [getitem](https://pytorch.org/docs/stable/_modules/torchvision/datasets/folder.html#DatasetFolder) method of ImageFolder return unprocessed PIL image.  PyTorch uses tensors, since we will pass this data through pytorch models. We need to transform the image before using data loader. 
+ The [getitem](https://pytorch.org/docs/stable/_modules/torchvision/datasets/folder.html#DatasetFolder) method of ImageFolder returns an unprocessed PIL image. PyTorch uses tensors, since we will pass this data through pytorch models, we need to transform the image before using the data loader. 
 
 ```python
 train_transforms = transforms.Compose([transforms.ToTensor()])
@@ -158,7 +158,7 @@ train_loader = torch.utils.data.DataLoader(train_data, batch_size=8, shuffle=Tru
 val_loader = torch.utils.data.DataLoader(val_data, batch_size=8)
 
 ```
-**batch_size** run 8 sample per iterations 
+**batch_size** run 8 samples per iterations 
 
 Run the data iter. This will raise a **runtime error**
 
@@ -201,16 +201,16 @@ print(classes.shape)
 
 PyTorch [nn](https://pytorch.org/docs/stable/nn.html) module is used to build models.
 
-When creating CNN, understanding the output dimensions after every connvolutional and pooling layers is important.
+When creating CNN, understanding the output dimensions after every convolutional and pooling layer is important.
 
 #### Calculate output dimensions
-This is the formula to calculate dimensions through convolutional layer
+This is the formula to calculate dimensions through a convolutional layer
 
 <img src="https://latex.codecogs.com/gif.latex?O=(\frac{W-K+2P}{S}+1)">
 
 Where;
 
-    O - The ouptut height/width
+    O - The output height/width
     W - The input height/width
     K - The kernel size
     P - Padding
@@ -244,7 +244,7 @@ the ouput will be 222 x 222 x 16 : **Note** 16 in the channel/color dimensions w
 
 
 
-**1st max pool layer**
+**1st max-pooling layer**
 
 shape = 222 x 222 x 16
 k = 2
@@ -272,7 +272,7 @@ The output image will be 111 x 111 x 16 (the color channel does not change after
   
   
  
- **2nd maxpooling layer**
+ **2nd max-pooling layer**
  
  56/2 = 28
  
@@ -280,7 +280,7 @@ The output image will be 111 x 111 x 16 (the color channel does not change after
  
  **Fully connected layer**
  
-In the fully connected layer you pass a flattened image and the number of output clases required in this case is 39.
+In the fully connected layer, you pass a flattened image and the number of output classes required in this case is 39.
 
 
 {%- capture code -%}
@@ -322,11 +322,11 @@ model = CropDetectCNN()
 
 
 ### Step 3: Loss and Optimizer
-**Loss** determines how far the model deviates from predicitng true values while **Optimizer** is the function used to change the attributes/parameter of the neural networks such as weights and learning rate.
+**Loss** determines how far the model deviates from predicting true values while **Optimizer** is the function used to change the attributes/parameter of the neural networks such as weights and learning rate.
 
-These functions are dependant on the type of machine learning problem you are trying to solve. In our case we are dealing with multi-class classification. You can research more on loss and optimization in neural networks.
+These functions are dependant on the type of machine learning problem you are trying to solve. In our case, we are dealing with multi-class classification. You can research more on loss and optimization in neural networks.
 
-For this case we'll use Cross Entropy Loss and Stochastic Gredient Descent(SGD)
+For this case, we'll use Cross-Entropy Loss and Stochastic Gradient Descent(SGD)
 
 {%- capture code -%}
 import torch.optim as optim
@@ -337,7 +337,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-Image analysis require very high processing power, Therefore you can leverage free GPUs in the market. PyTorch uses CUDA to enable developers to run their products on gpu enable environment. 
+Image analysis requires very high processing power, therefore you can leverage free GPUs in the market. PyTorch uses CUDA to enable developers to run their products on GPU enable environment. 
 
 {%- capture code -%}
 # run on GPU if available else run on a CPU
@@ -363,13 +363,13 @@ for epoch in range(epochs):
         # train the images
         outputs = model(images)
         
-        #calculate the loss given the ouputs and the classes
+        #calculate the loss given the outputs and the classes
         loss = criterion(outputs, classes)
         
         # compute the loss of every parameter
         loss.backward()
         
-        # apply the optimizer and it's parameters
+        # apply the optimizer and its parameters
         optimizer.step()
         
         #update the loss
@@ -411,7 +411,7 @@ for epoch in range(epochs):
                 # calculate the accuracy.
                 accuracy += torch.mean(equals.type(torch.FloatTensor))
         
-        # change the mode to train for next epochs
+        # change the mode to train for the next epochs
         model.train()
 
         print("Epoch: {}/{}.. ".format(epoch+1, epochs),
@@ -435,7 +435,7 @@ model.class_to_idx.items()
 {% include code.md code=code language='python' %}
 
 ##### Process the image
-- We need transform the image to the desired shape and to a tensor before predicing it.
+- We need to transform the image to the desired shape and to a tensor before predicing it.
 
 {%- capture code -%}
 from PIL import Image
