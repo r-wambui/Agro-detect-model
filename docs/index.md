@@ -437,6 +437,19 @@ model.class_to_idx.items()
 
 {%- capture code -%}
 from PIL import Image
+import numpy as np
+
+def imshow(image):
+
+    fig, ax = plt.subplots()
+    image = image.transpose(0, 1, 2)
+
+    ax.imshow(image)
+    ax.set_xticklabels('')
+    ax.set_yticklabels('')
+    
+    return ax
+
 
 def process_image(image_path):
     
@@ -445,6 +458,7 @@ def process_image(image_path):
                                        transforms.ToTensor()])
     
     im = Image.open(image_path)
+    imshow(np.array(im))
     im = test_transform(im)
 
     return im
@@ -487,5 +501,20 @@ def predict(image, model):
 
 
 #### Visualization
+{%- capture code -%}
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+def plot_solution(image_path, ps, classes):
+    plt.figure(figsize = (6,10))
+    
+    image = process_image(image_path)
+
+    plt.subplot(2,1,2)
+    sns.barplot(x=ps, y=classes, color=sns.color_palette()[2]);
+    plt.show()
+{%- endcapture -%}
+{% include code.md code=code language='python' %}
+
 
 
