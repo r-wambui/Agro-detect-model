@@ -207,7 +207,7 @@ When creating CNN, understanding the output dimensions after every connvolutiona
 #### Calculate output dimensions
 This is the formula to calculate dimensions through convolutional layer
 
-O =$(\frac{W-K + 2P}{S} + 1)$
+<img src="https://latex.codecogs.com/gif.latex?O=(\frac{W-K+2P}{S}+1)">
 
 Where;
 
@@ -219,19 +219,25 @@ Where;
 
 This is used to calculate dimensions after a max pool layer
 
-$(\frac{W}{K})$
+<img src="https://latex.codecogs.com/gif.latex?O=(\frac{W}{K})">
 
-We will create a sample CNN model with **2 convolutional layers**, **2 max pooling layers** and **1 fully connected layer**
+We will create a **sample CNN model of this architecture**:
 
-Input_image = 224, 224, 3
+  - *2 convolutional layers*
+  - *2 max pooling layers* 
+  - *1 fully connected layer*
+
+
+Input_image shape(RGB) = 224, 224, 3
 
 **1st convolutional layer**
+
 - W = 224
 - K = 3
 - P = 0
 - S = 1
 
-O =$(\frac{224-3 + 2*0}{1} + 1)$
+<img src="https://latex.codecogs.com/gif.latex?O=(\frac{224-3+2*0}{1}+1)">
 
 (224 - 3 ) + 1 = 222 
 
@@ -258,7 +264,8 @@ The output image will be 111 x 111 x 16 (the color channel does not change after
  - P = 1
  - S = 2
  
- O =$(\frac{111-4 + 2*1}{2} + 1)$
+ <img src="https://latex.codecogs.com/gif.latex?O=(\frac{111-4+2*1}{2}+1)">
+
  
  (111 - 3 + 2*1)/2 + 1 = 56 
  
@@ -272,9 +279,9 @@ The output image will be 111 x 111 x 16 (the color channel does not change after
  
  output image 28 x 28 x 32
  
- **fully connected layer**
+ **Fully connected layer**
  
-In the fully connected layer you pass a flattened image and the number of output clases(crop diseases) required in this case is 39.
+In the fully connected layer you pass a flattened image and the number of output clases required in this case is 39.
 
 
 {%- capture code -%}
