@@ -381,8 +381,10 @@ for epoch in range(epochs):
         
         # to make the model run faster we are using the gradients on the train
         with torch.no_grad():
+
             # specify that this is validation and not training
             model.eval()
+
             for images, classes in val_loader:
                 
                 # Use GPU
@@ -420,11 +422,11 @@ for epoch in range(epochs):
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-#### Step 6: Predict on New data
+#### Step 6: Model prediction
 
-Let's see how our model is able to predict on of set image.
+Let's see how our model is able to predict on of set images.
 
-In the PyTorch ImageFolder we used, we have a variable **class_to_idx** which converted the class names to respective index. 
+In the PyTorch ImageFolder we used, we have a variable **class_to_idx** which converted the class names to respective index. Since training uses the index we need to convert the predicted index to the corresponding class name
 
 {%- capture code -%}
 model.class_to_idx = train_data.class_to_idx
@@ -433,15 +435,17 @@ model.class_to_idx.items()
 {% include code.md code=code language='python' %}
 
 ##### Process the image
-- We need transform the image to the desired shape and to a tensor
+- We need transform the image to the desired shape and to a tensor before predicing it.
 
 {%- capture code -%}
 from PIL import Image
 import numpy as np
 
-def imshow(image):
-
+# Plot the image
+def imshow(image_numpy_array):
     fig, ax = plt.subplots()
+    
+    # convert the shape from (3, 256, 256) to (256, 256, 3)
     image = image.transpose(0, 1, 2)
 
     ax.imshow(image)
