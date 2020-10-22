@@ -15,11 +15,11 @@ By Rose Wambui
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/plant.jpg" />
 
 ### Introduction
-{:toc}
+
 In this tuitorial we will be creating a simple crop disease detector using PyTorch. We will use plant dataset that consists of 39 different classes of crop diseases with RGB images. We will leverage the power of Convolutional Neural Network(CNN)to achieve this.
 
 ### Prerequisites
-{:toc}
+
  * Install PyTorch
  * Basic Understanding on Nueral Networks specifically in this case Convolutional Neural Network(CNN)
 
@@ -53,6 +53,8 @@ Creating a CNN will involves the following:
 ```Step 4: Training the model using the training set of data```
 
 ```Step 5: Validating the model using the test set```
+
+```Step 6: Predict```
 
 
 NB  We will tackle this tutorial in a different format, where I will show the common errors I encountered while starting to learn PyTorch. 
@@ -320,7 +322,7 @@ model = CropDetectCNN()
 
 
 ### Step 3: Loss and Optimizer
-Loss determines how far the model deviates from predicitng true values while Optimizer is the function used to change the attributes/parameter of the neural networks such as weights and learning rate.
+**Loss** determines how far the model deviates from predicitng true values while **Optimizer** is the function used to change the attributes/parameter of the neural networks such as weights and learning rate.
 
 These functions are dependant on the type of machine learning problem you are trying to solve. In our case we are dealing with multi-class classification. You can research more on loss and optimization in neural networks.
 
@@ -343,7 +345,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-#### Step 4: Model Training
+#### Step 4 & 5: Model Training and Validation
 
 {%- capture code -%}
 epochs = 1 #run more iterations
@@ -352,7 +354,7 @@ for epoch in range(epochs):
     running_loss = 0
     for images, classes in train_loader:
 
-        # Use GPU 
+        # To device - to transfrom the image and classes to CPU|GPU
         images, classes = images.to(device), classes.to(device)
         
         # clears old gradients from the last step
@@ -417,3 +419,73 @@ for epoch in range(epochs):
 
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
+
+#### Step 6: Predict on New data
+
+Let's see how our model is able to predict on of set image.
+
+In the PyTorch ImageFolder we used, we have a variable **class_to_idx** which converted the class names to respective index. 
+
+{%- capture code -%}
+model.class_to_idx = train_data.class_to_idx
+model.class_to_idx.items()
+{%- endcapture -%}
+{% include code.md code=code language='python' %}
+
+##### Process the image
+- We need transform the image to the desired shape and to a tensor
+
+{%- capture code -%}
+from PIL import Image
+
+def process_image(image_path):
+    
+    test_transform = transforms.Compose([
+                                       transforms.RandomResizedCrop(224),
+                                       transforms.ToTensor()])
+    
+    im = Image.open(image_path)
+    im = test_transform(im)
+
+    return im
+{%- endcapture -%}
+{% include code.md code=code language='python' %}
+
+- Pass the image through the already trained model.
+
+{%- capture code -%}
+def predict(image, model):
+    # we have to process the image as we did while training the others
+    image = process_image(image)
+    
+    #returns a new tensor with a given dimension
+    image_input = image.unsqueeze(0)
+    
+    # Convert the image to either gpu|cpu
+    image_input.to(device)
+    
+    # Pass the image through the model
+    outputs = model(image_input)
+
+    ps = torch.exp(outputs)
+    
+    # return the top 5 most predicted classes
+    top_p, top_cls = ps.topk(5, dim=1)
+
+    # convert to numpy, then to list 
+    top_cls = top_cls.detach().numpy().tolist()[0]
+    
+    # covert indices to classes
+    idx_to_class = {v: k for k, v in model.class_to_idx.items()}
+    
+    top_cls = [idx_to_class[top_class] for top_class in top_cls]
+    
+    return top_p, top_cls
+
+{%- endcapture -%}
+{% include code.md code=code language='python' %}
+
+
+#### Visualization
+
+
