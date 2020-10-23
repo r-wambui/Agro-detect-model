@@ -3,9 +3,7 @@ id: index
 title: Build a Simple Crop Disease Detection Model with PyTorch
 sidebar_label: PyTorch Tutorial
 layout: default
-output:
-  html_document:
-    css: styles.css
+
 ---
 
 <div class="sidenav"  markdown="1">
