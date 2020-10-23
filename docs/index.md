@@ -328,7 +328,7 @@ print(model)
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-<img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/model.png" />
+<img src= "https://github.com/r-wambui/Agro-detect-model/raw/gh-pages/static/img/model.png" />
 
 ### Step 3: Loss and Optimizer
 {:toc}
@@ -433,7 +433,7 @@ for epoch in range(epochs):
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-<img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/train_model.png" />
+<img src= "https://github.com/r-wambui/Agro-detect-model/raw/gh-pages/static/img/train_model.png" />
 
 ### Step 6: Model prediction
 {:toc}
@@ -447,7 +447,7 @@ model.class_to_idx.items()
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
-<img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/classes.png" />
+<img src= "https://github.com/r-wambui/Agro-detect-model/raw/gh-pages/static/img/classes.png" />
 #### 6.1 Process the image
 {:.no_toc}
 - We need to transform the image to the desired shape and to a tensor before predicing it.
