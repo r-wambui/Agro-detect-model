@@ -6,6 +6,12 @@ layout: default
 toc: true
 toc_sticky: true
 ---
+<div class="page-content" markdown="1">
+      <div id="left-side">
+    * TOC
+   {:toc}
+      </div>
+    </div>
 
 ## Build a Simple Crop Disease Detection Model with PyTorch
 {:.no_toc}
@@ -15,8 +21,6 @@ By [Rose Wambui](https://www.linkedin.com/in/rose-wambui-ab2178114/)
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/plant.jpg" />
 
-* auto-gen TOC:
-{:toc}
 ### Introduction
 {:toc}
 In this tutorial, we will be creating a simple crop disease detector using PyTorch. We will use a plant dataset that consists of 39 different classes of crop diseases with RGB images. We will leverage the power of the Convolutional Neural Network(CNN)to achieve this.
