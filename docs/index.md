@@ -5,9 +5,6 @@ sidebar_label: PyTorch Tutorial
 layout: default
 toc: true
 toc_sticky: true
-sidebar:
-    * auto-gen TOC:
-    {:toc}
 ---
 ## Build a Simple Crop Disease Detection Model with PyTorch
 {:.no_toc}
