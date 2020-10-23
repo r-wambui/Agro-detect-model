@@ -6,6 +6,10 @@ layout: default
 toc: true
 toc_sticky: true
 ---
+
+* auto-gen TOC:
+{:toc}
+
 ## Build a Simple Crop Disease Detection Model with PyTorch
 {:.no_toc}
 October 12, 2020
