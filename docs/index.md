@@ -6,8 +6,6 @@ layout: default
 
 ---
 
-
-
 ## Build a Simple Crop Disease Detection Model with PyTorch
 {:.no_toc}
 October 12, 2020
@@ -78,9 +76,13 @@ from torchvision import datasets, transforms, models
 {:.no_toc}
  Set up the data directory folder
 
-```python
-data_dir = "data" 
-```
+{%- capture code -%}
+
+data_dir = "data/" 
+
+{%- endcapture -%}
+{% include code.md code=code language='python' %}
+
  Every image is in form of pixels that translate into arrays. PyTorch uses [PIL](https://pillow.readthedocs.io/en/stable/) - A python library for image processing.
 
 
@@ -129,7 +131,7 @@ The command above raises:
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/non_iterable.png" />
 
-This means we can not iterate(meaning loop through) over the dataset. Pytorch use [DataLoader](https://pytorch.org/docs/stable/data.html) to make the dataset iterable
+This means we can not iterate(meaning loop through) over the dataset. Pytorch use [DataLoader](https://pytorch.org/docs/stable/data.html) to make the dataset iterable.
 
 ```python
 train_loader = torch.utils.data.DataLoader(train_data, shuffle=True)
@@ -147,7 +149,7 @@ The code above raises:
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/tensor.png" />
 
- The [getitem](https://pytorch.org/docs/stable/_modules/torchvision/datasets/folder.html#DatasetFolder) method of ImageFolder returns an unprocessed PIL image. PyTorch uses tensors, since we will pass this data through pytorch models, we need to transform the image before using the data loader. 
+ The [getitem](https://pytorch.org/docs/stable/_modules/torchvision/datasets/folder.html#DatasetFolder) method of ImageFolder returns an unprocessed PIL image. PyTorch uses tensors, since we will pass this data through pytorch models, we need to transform the image to a tensor before using the data loader. 
 
 ```python
 train_transforms = transforms.Compose([transforms.ToTensor()])
@@ -162,13 +164,15 @@ train_loader = torch.utils.data.DataLoader(train_data, batch_size=8, shuffle=Tru
 val_loader = torch.utils.data.DataLoader(val_data, batch_size=8)
 
 ```
-**batch_size** run 8 samples per iterations 
+**batch_size** means run 8 samples per iterations 
 
-Run the data iter. This will raise a **runtime error**
+Run the dataiter again. 
+
+This will raise a **runtime error**
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/runtime.png" />
 
-Therefore we need to resize the images to the same shape before transforming it to a tensor
+In most scenarios you will get images that are of different dimensions. In image processing, it's highly recommended to transform the images to equal dimensions to ensure that the model can not prioritize predicting based on the dimensions. Therefore we need to resize the images to the same shape then transform it to a tensor. After setting the data directory you can go ahead and write the code below which combines all the steps we have discussed above. 
 
 #### Data Transformation and Augumentation
 {:.no_toc}
@@ -205,7 +209,7 @@ print(classes.shape)
 ###  Step 2: Model architecture
 {:toc}
 
-PyTorch [nn](https://pytorch.org/docs/stable/nn.html) module is used to build models.
+We'll be using PyTorch [nn](https://pytorch.org/docs/stable/nn.html) module to build models.
 
 When creating CNN, understanding the output dimensions after every convolutional and pooling layer is important.
 
@@ -226,6 +230,12 @@ Where;
 This is used to calculate dimensions after a max pool layer
 
 <img src="https://latex.codecogs.com/gif.latex?O=(\frac{W}{K})">
+
+Where;
+
+    O - The output height/width
+    W - The input height/width(after convolutional layer)
+    K - The kernel size of the max pool layer
 
 We will create a **sample CNN model of this architecture**:
 
@@ -541,4 +551,4 @@ def plot_solution(image_path, ps, classes):
 {:toc}
 - This tutorial is based on a simple CNN that should get you started on developing and understanding Neural Network and Image processing with Pytorch. 
 
--The project, however, is build using deep Convolutional Neural Networks of pre-trained densenet 201. This is the concept of transfer learning, which is the improvement of a model in a new project scenario through the transfer of knowledge from a related project scenario that has already been trained.
+- The project, however, is build using deep Convolutional Neural Networks of pre-trained densenet 201. This is the concept of transfer learning, which is the improvement of a model in a new project scenario through the transfer of knowledge from a related project scenario that has already been trained.
