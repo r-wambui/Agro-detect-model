@@ -2,7 +2,6 @@
 {% assign language = include.language %}
 
 {% assign nanosecond = "now" | date: "%N" %}
-<link rel="stylesheet" href="https://github.com/r-wambui/Agro-detect-model/raw/develop/docs/_includes/style.css">
 
 <div id="code{{ nanosecond }}" markdown="1">
 

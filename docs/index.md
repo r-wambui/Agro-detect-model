@@ -6,10 +6,7 @@ layout: default
 
 ---
 
-<div class="sidenav"  markdown="1">
-* toc
-{:toc}
-</div>
+
 
 ## Build a Simple Crop Disease Detection Model with PyTorch
 {:.no_toc}
