@@ -6,7 +6,8 @@ layout: default
 toc: true
 toc_sticky: true
 ---
-<div id="left-side" markdown="1">
+<link rel="stylesheet" href="https://github.com/r-wambui/Agro-detect-model/raw/develop/docs/style.css">
+<div class="sidenav" id="left-side" markdown="1">
 * toc
 {:toc}
 </div>
