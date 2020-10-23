@@ -3,10 +3,10 @@ id: index
 title: Build a Simple Crop Disease Detection Model with PyTorch
 sidebar_label: PyTorch Tutorial
 layout: default
-toc: true
-toc_sticky: true
+output:
+  html_document:
+    css: styles.css
 ---
-<link rel="stylesheet" href="https://github.com/r-wambui/Agro-detect-model/raw/gh-phages/docs/style.css"/>
 
 <div class="sidenav"  markdown="1">
 * toc
