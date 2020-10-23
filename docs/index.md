@@ -16,11 +16,9 @@ By [Rose Wambui](https://www.linkedin.com/in/rose-wambui-ab2178114/)
 
 <img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/plant.jpg" />
 
-  * toc
-    {:toc}
 ### Introduction
 {:toc}
-In this tutorial, we will be creating a simple crop disease detector using PyTorch. We will use a plant dataset that consists of 39 different classes of crop diseases with RGB images. We will leverage the power of the Convolutional Neural Network(CNN)to achieve this.
+In this tutorial, we will be creating a simple crop disease detector using PyTorch. We will use a plant leaf dataset that consists of 39 different classes of crop diseases with RGB images. We will leverage the power of the Convolutional Neural Network(CNN)to achieve this.
 
 ### Prerequisites
 {:toc}
@@ -326,9 +324,11 @@ class CropDetectCNN(nn.Module):
         return out
 
 model = CropDetectCNN()
+print(model)
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
+<img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/model.png" />
 
 ### Step 3: Loss and Optimizer
 {:toc}
@@ -433,6 +433,8 @@ for epoch in range(epochs):
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
+<img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/train_model.png" />
+
 ### Step 6: Model prediction
 {:toc}
 Let's see how our model is able to predict on of set images.
@@ -445,6 +447,7 @@ model.class_to_idx.items()
 {%- endcapture -%}
 {% include code.md code=code language='python' %}
 
+<img src= "https://github.com/r-wambui/Agro-detect-model/raw/develop/static/img/classes.png" />
 #### 6.1 Process the image
 {:.no_toc}
 - We need to transform the image to the desired shape and to a tensor before predicing it.
@@ -536,4 +539,6 @@ def plot_solution(image_path, ps, classes):
 
 ### Conclusion
 {:toc}
-- 
+- This tutorial is based on a simple CNN that should get you started on developing and understanding Neural Network and Image processing with Pytorch. 
+
+-The project, however, is build using deep Convolutional Neural Networks of pre-trained densenet 201. This is the concept of transfer learning, which is the improvement of a model in a new project scenario through the transfer of knowledge from a related project scenario that has already been trained.
