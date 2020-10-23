@@ -6,9 +6,9 @@ layout: default
 toc: true
 toc_sticky: true
 ---
-<div class="page-content" id="left-side" markdown="1">
-    * TOC
-   {:toc}
+<div id="left-side" markdown="1">
+* toc
+{:toc}
 </div>
 
 ## Build a Simple Crop Disease Detection Model with PyTorch
