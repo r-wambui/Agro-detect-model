@@ -1,0 +1,8 @@
+name: Build a Simple Crop Detection Model with PyTorch
+title: null
+markdown: kramdown
+theme: jekyll-theme-cayman
+exclude: [vendor]
+sidebar:
+  title: "Sample Title"
+  nav: sidebar-sample
